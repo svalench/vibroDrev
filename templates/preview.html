@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> startpage </title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <p>Вы авторизованы .</p> <a href="{% url 'logout'%}">Logout.</a> <a href="{% url 'vibroDiagnostic:startsystem'%}">В систему.</a>
+  {% else %}
+    <p>Для входа нажмите здесь  <a href="{% url 'login'%}">Login.</a> </p>
+  {% endif %}
+<br>
+this is base <br>
+</body>
+</html>

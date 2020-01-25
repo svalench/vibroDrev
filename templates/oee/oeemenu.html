@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %} OEE {% endblock %}
+
+
+{% block content %}
+{% load static %}
+           <div class="col-4 col-sm-5 mb-4 mr-5 mt-4">
+                <div class="row box-card flex-column flex-sm-row">
+
+                    <div id="oee_online" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                        <div class="border-in d-flex justify-content-center align-items-center p-2">
+
+                            <div class="d-flex flex-rowf flex-grow-1 flex-shrink-1 flex-fill justify-content-center align-items-center align-content-center align-self-center flex-sm-column flex-md-row flex-lg-row flex-xl-row">
+                                <div class="single-chart text-center">
+                                    <svg viewBox="0 0 36 36" class="circular-chart orange" style="background-color: transparent!important;">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <path class="circle" stroke-dasharray="81, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <text x="18" y="24.5" class="percentage-text">A</text>
+                                    </svg>
+                                </div>
+
+                                 <a href="{% url 'vibroDiagnostic:oeeall' %}"><div class="single-chart text-center">
+                                    <svg viewBox="0 0 36 36" class="circular-chart green" style="background-color: transparent !important;">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <path class="circle" stroke-dasharray="80, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <text x="18" y="24.5" class="percentage-text">P</text>
+                                    </svg>
+                                 </div></a>
+
+                                <div class="single-chart text-center">
+                                    <svg viewBox="0 0 36 36" class="circular-chart blue" style="background-color: transparent !important;">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <path class="circle" stroke-dasharray="91, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                                        <text x="18" y="24.5" class="percentage-text">Q</text>
+                                    </svg>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                        <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                            <a href="{% url 'vibroDiagnostic:oeeall' %}"><h2 class=""
+                            >Онлайн</h2></a>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Онлайн просмотр сводной таблицы ОЕЕ по всему представленному оборудованию</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+             <div class="col-4 col-sm-5 mb-4 mt-4">
+                <div class="row box-card flex-column flex-sm-row">
+
+                    <div id="oee_otcet" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                        <div class="border-in d-flex justify-content-center align-items-center p-2">
+                            <img class="rounded img-fluid" src="{% static  'img/white/report.png' %}">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                        <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                            <h2 class=""
+                            >Отчеты</h2>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Анализ количественных и качественных показателей OEE. Вывод сводной ведомости</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

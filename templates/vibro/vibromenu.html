@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Вибрация {% endblock %}
+
+{% block content %}
+{% load static %}
+    <div class="col-4 col-sm-5 mb-4 mr-5 mt-4" xmlns="http://www.w3.org/1999/html">
+            <div class="row box-card flex-column flex-sm-row">
+
+                <div id="online_v" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                    <div class="border-in d-flex justify-content-center align-items-center p-2">
+                        <img class="rounded img-fluid" src="{% static  'img/white/online.svg' %}">
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                    <a href="{% url 'vibroDiagnostic:vibroOnlineSelect' %}"><div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                        <h2 class=""
+                        >Онлайн</h2>
+                </div></a>
+
+                    <div class="text-center">
+                        <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Онлайн просмотр текущих величин вибраций и температур</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+   <div class="col-4 col-sm-5 mb-4 mt-4">
+            <div class="row box-card flex-column flex-sm-row">
+
+                <div id="otchet_v" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                    <div class="border-in d-flex justify-content-center align-items-center p-2">
+                        <img class="rounded img-fluid" src="{% static 'img/white/report.png' %}">
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                    <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                        <h2 class=""
+                            onclick="document.getElementById('otchet_v').click()"
+                        >Отчеты</h2>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Анализ количественных и качественных показателей вибрации. Вывод сводной ведомости</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

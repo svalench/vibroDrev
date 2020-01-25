@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %} 3D {% endblock %}
+
+{% block content %}
+{% load static %}
+       <div class="col-4 col-sm-5 mr-5 mt-4">
+                <div class="row box-card flex-column flex-sm-row">
+
+                    <div id="3dscan" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                        <div class="border-in d-flex justify-content-center align-items-center p-2">
+                            <img class="rounded img-fluid" src="{% static  'img/white/online.png' %}">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                        <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                            <h2 class=""
+                                onclick="document.getElementById('3dscan').click()"
+                            >Онлайн</h2>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Онлайн просмотр парметров бревна сканиреумого в данный момент. 3D модель сканируемого бревна</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      <div class="col-4 col-sm-5 mt-4">
+                <div class="row box-card flex-column flex-sm-row">
+
+                    <div id="3dotcet" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                        <div class="border-in d-flex justify-content-center align-items-center p-2">
+                            <img class="rounded img-fluid" src="{% static  'img/white/report.png' %}" style="max-width: 80%;">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                        <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                            <h2 class=""
+                                onclick="document.getElementById('3dotcet').click()"
+                            >Отчеты</h2>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Анализ количественных показателей отсканированных бревен. Вывод сводной ведомости</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

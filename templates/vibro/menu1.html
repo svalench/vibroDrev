@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %} МЕНЮ {% endblock %}
+
+{% block content %}
+    {% load static %}
+        <div class="row justify-content-around justify-content-sm-center py-4">
+{% if request.user.client.to_3d  %}
+
+                <div class="col-4 col-sm-5 mb-4 mr-sm-5">
+                    <div class="row box-card flex-column flex-sm-row">
+
+                        <div id="3d" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                            <div class="border-in d-flex justify-content-center align-items-center p-2">
+                                <img src="{% static  'img/start/3d-scaner-white.png' %}"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start align-items-center bg-white p-2">
+
+                            <a href="{% url 'vibroDiagnostic:3d' %}"><div class="box-text text-center mb-2 mt-sm-2 mt-lg-4">
+                                <h2 class="text-center"
+                                >3D сканер</h2>
+                            </div></a>
+
+                            <div class="text-center">
+                                <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Онлайн просмотр и анализ<br>количественных и качественных<br> показателей древесины.<br>Вывод сводной ведомости</span>
+                            </div>
+
+                            <ul class="mt-sm-1 mt-lg-3 text-center d-none d-xl-block">
+                                <li class="mb-2">
+                                    <a href="" class="hover-link">Онлайн</a>
+                                </li>
+                                 <li>
+                                    <a href="" class="hover-link">Отчеты</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+       {% if request.user.client.to_vibro  %}
+                <div class="col-4 col-sm-5 mb-4 mb-sm-5">
+                    <div class="row box-card flex-column flex-sm-row">
+
+                        <div id="vibration" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                            <div class="border-in d-flex justify-content-center align-items-center p-2">
+                                <img src="{% static  'img/start/vibracii.svg' %}"/>
+                            </div>
+                        </div>
+
+                       <div class="col-12 col-sm-7  d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start align-items-center bg-white p-2">
+
+                            <div class="box-text text-center mb-2 mt-sm-2 mt-lg-4">
+                                <a href="{% url 'vibroDiagnostic:vibration' %}"><h2 class=""
+                                >Вибрация</h2></a>
+                            </div>
+
+                            <div class="text-center">
+                                <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Онлайн просмотр текущих величин<br>вибраций и температур.<br> Анализ количественных<br>и качественных показателей вибрации.<br>Вывод сводной ведомости</span>
+                            </div>
+
+                            <ul class="mt-sm-1 mt-lg-3 text-center d-none d-xl-block">
+                                <li class="mb-2">
+                                    <a href="{% url 'vibroDiagnostic:vibroOnlineSelect' %}" class="hover-link">Онлайн</a>
+                                </li>
+                                 <li>
+                                    <a href="" class="hover-link">Отчеты</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+{% endif %}
+                <div class="col-12"></div>
+     {% if request.user.client.to_oee  %}
+                <div class="col-4 col-sm-5 mb-4 mr-sm-5">
+                    <div class="row box-card">
+
+                        <div id="oee" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                            <div class="border-in d-flex justify-content-center align-items-center p-2">
+                                <img src="{% static  'img/start/oee.svg' %}"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start align-items-center bg-white p-2">
+
+                            <a href="{% url 'vibroDiagnostic:oeemenu' %}"> <div class="box-text text-center mb-2 mt-sm-2 mt-lg-4">
+                                <h2 class=""
+                                    >OEE</h2>
+                            </div></a>
+
+                            <div class="text-center">
+                                <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Анализ показателей ОЕЕ<br>по каждому станку</span>
+                            </div>
+
+                            <ul class="mt-sm-1 mt-lg-3 text-center d-none d-xl-block">
+                                <li class="mb-2">
+                                    <a href="{% url 'vibroDiagnostic:oeeall' %}" class="hover-link">Онлайн</a>
+                                </li>
+                                 <li>
+                                    <a href="" class="hover-link">Отчеты</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        {% endif %}
+          {% if request.user.client.to_jurnal  %}
+                <div class="col-4 col-sm-5">
+                    <div class="row box-card">
+
+                        <div id="repairs" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                            <div class="border-in d-flex justify-content-center align-items-center p-2">
+                                <img src="{% static  'img/start/remont-white.png' %}"/>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-7  d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start align-items-center bg-white p-2">
+
+                           <a href="{% url 'vibroDiagnostic:jurnalmenu' %}"> <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                                <h2 class=""
+                                    >Ремонтные работы</h2>
+                           </div></a>
+
+                            <div class="box-text text-center">
+                                <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Просмотр журнала ремонтых работ<br>и его заполнение</span>
+                            </div>
+
+                            <ul class="mt-sm-1 mt-lg-3 text-center d-none d-xl-block">
+                                <li class="mb-2">
+                                    <a href="" class="hover-link">Просмотр журнала</a>
+                                </li>
+                                 <li>
+                                    <a href="" class="hover-link">Заполнение журнала</a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+        {% endif %}
+
+            </div>
+{% endblock %}

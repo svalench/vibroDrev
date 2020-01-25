@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title  %} startpage {% endblock %}</title>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css'%}">
+{#    <link rel="stylesheet" href="{% static  'css/styles.css' %}">#}
+
+    <link rel="stylesheet" href="{% static 'css/gauge.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <!--<script src="/js/jq.js"></script>-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script type="text/javascript" src="{% static 'js/moment-with-locales.js' %}"></script>
+    <script src="{% static 'js/tooltip.js' %}"></script>
+    <script src="{% static 'js/status-resize.js' %}"></script>
+</head>
+<body>
+
+<div id="container-full" class="container-fluid p-0 d-flex flex-column justify-content-start align-items-center" style="min-height: 100%;">
+
+    <div class="container-fluid  d-print-none" id="headerID">
+
+        <div class="row justify-content-end header-row-first align-items-center bg-blue">
+
+            <div class="col-12 d-flex justify-content-end align-items-center">
+
+                <div class="logo-box mr-auto">
+                    <a href="{% url 'vibroDiagnostic:startsystem' %}">
+                        <img id="astImg" class="rounded img-fluid d-flex flex-shrink-0 flex-fill flex-wrap mr-auto"
+                             src="{% static  'img/logo.png' %}" alt="MVLab" style="">
+                    </a>
+                </div>
+
+{#                <div class="text-center mr-5 timesever">#}
+{#                    <span class="text-monospace font-weight-bold" id="timesever"#}
+{#                          style="font-size:20px;">Серверное время</span>#}
+{#                </div>#}
+{% if request.user.is_superuser %}
+                <div class="mr-5 settings">
+                    <a href="/admin"><span id="param12" class="settings-ico"></span></a>
+                </div>
+{% endif %}
+                <div class="mr-5 user" style="font-size:20px;">
+                        <span id="UserID" class="face-ico font-weight-bold font-italic weight-text">
+                            {{ user.username }}
+                        </span>
+                </div>
+
+                <div class="exit">
+                    <form action="{% url 'logout'%}">
+                    <button class="butt-exit" type="submit"  id="LogoutID">Выйти</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-start header-row-2 align-items-center bg-gray d-none d-sm-none d-md-none d-lg-flex">
+            <div class="col-12 d-flex justify-content-start header-row-2 align-items-center menu" style="z-index: 10000;">
+{% if user.client.to_3d %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:3d'  %}" class="link-parent">3D-Сканер</a>
+                    <div class="menu-children">
+                        <a href="/start/3d/3dscan/index.php">Онлайн</a>
+                        <a href="/start/3d/3dotchet/index.php">Отчеты</a>
+                    </div>
+                </div>
+            {% endif %}
+{% if user.client.to_vibro %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:vibration' %}" class="link-parent">Вибрация</a>
+                    <div class="menu-children">
+                        <a href="{% url 'vibroDiagnostic:vibroOnlineSelect' %}">Онлайн</a>
+                        <a href="/start/vibration/otchet_v/index.php">Отчеты</a>
+                    </div>
+                </div>
+{% endif %}
+                {% if user.client.to_oee %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:oeemenu' %}" class="link-parent">OEE</a>
+                    <div class="menu-children">
+                        <a href="{% url 'vibroDiagnostic:oeeall' %}">Онлайн</a>
+                        <a href="/start/oee/oee_otcet/index.php">Отчеты</a>
+                    </div>
+                </div>
+                {% endif %}
+             {% if user.client.to_jurnal %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:jurnalmenu' %}" class="link-parent">Ремонтные работы</a>
+                    <div class="menu-children">
+                        <a href="/start/repairs/repairsToDo/index.php">Просмотр журнала</a>
+                        <a href="/start/repairs/repairsNow/index.php">Заполнение журнала</a>
+                    </div>
+                </div>
+            {% endif %}
+            {% if user.client.to_message %}
+             <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:messages' %}" class="link-parent">Сообщения</a>
+                </div>
+             {% endif %}
+                </nav>
+            </div>
+
+        </div>
+    </div>
+
+
+
+<div class="container-fluid d-flex flex-column justify-content-start" id="bodyID">
+
+    <div id="body_container" class="row flex-column-reverse flex-sm-column-reverse flex-md-row">
+        <div id="col_left" class="col-md-9 d-flex justify-content-center align-items-start">
+
+
+                {% block content %} {% endblock %}
+
+        
+</div>
+        <div id="col_right" class="col-md-3 d-flex justify-content-end align-items-stretch messages-out-box">
+            <div class="table-responsive table-bordered " id="tableID" style="overflow:auto; max-height: 70vh;">
+                <table class="table table-striped table-bordered table-sm">
+                    <tbody id="messages_err" >
+                    {%  for i in '0123456789qwerdfgfghjgjhg'|make_list %}
+
+                    <tr>
+                        <td colspan="12">ОЖИДАЙТЕ ОБНОВЛЕНИЯ ДАННЫХ</td>
+                    </tr>
+                    {% endfor %}
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+ </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container-fluid d-print-none bg-blue p-0" id="StatusNetwork">
+        <div id="StatusNetwork1" class="row d-flex flex-fill justify-content-sm-end m-0">
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Модуль вибрации пилы левой</span>
+                        </div>
+                    <div class="col-12 p-0">
+                        <span id="block1_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block1_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Модуль вибрации пилы правой</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block2_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block2_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Дробилки</span>
+                    </div>
+                     <div class="col-12 p-0">
+                         <span id="block3_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                             <i id="block3_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Лущильный станок №1</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block5_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block5_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Лущильный станок №2</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block6_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block6_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Лущильный станок №3</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block4_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block4_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Дробилка на оптимизаторе</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block7_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block7_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Модуль на обрезке</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block8_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block8_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Шлифстанок правый модуль</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block9_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block9_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Шлифстанок левый модуль</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block10_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block10_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Контроллер на лущильном станке</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block11_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block11_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Пила левая</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block12_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block12_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Пила правая</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block13_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block13_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col px-0 text-center d-flex align-items-stretch q">
+                <div class="row w-100 m-0 align-items-end">
+                    <div class="col-12 py-2 d-none d-sm-none d-md-none d-xl-flex justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+                        <span class="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center txtTl" style="font-size: 11px;font-style: normal;">Модуль на прессах</span>
+                    </div>
+                    <div class="col-12 p-0">
+                        <span id="block14_pere" class="material-tooltip-main" data-toogle="tooltip" title="">
+                            <i id="block14_style" class="" style="color:green;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
+
+
+
+
+<style>
+    @media screen and (max-width: 576px) {
+
+        .single-chart {
+            width: 25%;
+        }
+
+        .box-card {
+            min-height: auto !important;
+        }
+        .box-card .col-12:first-child {
+            /*max-height: 100px;*/
+        }
+        .box-card .border-in {
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+        }
+        .box-card img {
+            padding: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .box-card .border-in::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
+        .box-card h2 {
+            font-size: 16px;
+            height: 40px;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        #bodyID {
+            margin-bottom: 0;
+            /*height: calc(100vh - 163px);*/
+            height: calc(100vh - 80px);
+        }
+
+        #padBot {
+            padding: 0;
+        }
+
+        #body_container {
+            /*height: 100%;*/
+        }
+        #col_left {
+            margin: auto;
+        }
+        #container-full {
+            min-height: 100%;
+        }
+    }
+</style>

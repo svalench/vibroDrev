@@ -1,0 +1,74 @@
+.single-chart {
+  width:33%;
+  /*justify-content:space-around;*/
+}
+
+.circular-chart {
+  /*display:block;*/
+  /*margin:10px auto;*/
+  max-width:80%;
+  /*max-height:250px;*/
+}
+
+.circle-bg {
+  fill:none;
+  /*stroke:#eee;*/
+  stroke-width:3.8;
+}
+
+.circle {
+  fill:none;
+  stroke-width:2.8;
+  stroke-linecap:round;
+
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray:0 100;
+  }
+}
+
+.circular-chart.orange .circle {
+  stroke:#84AED9;
+}
+
+.circular-chart.green .circle {
+  stroke:#84AED9;
+}
+
+.circular-chart.blue .circle {
+  stroke:#84AED9;
+}
+
+.percentage {
+  fill:#666;
+  font-family:sans-serif;
+  font-size:1.2em;
+  text-anchor:middle;
+}
+
+.percentage-text {
+  fill:#666;
+  font-family:sans-serif;
+  font-size:1.2em;
+  text-anchor:middle;
+}
+#oee_online .percentage-text {
+  fill: #fff;
+}
+#oee_online .circular-chart.orange .circle {
+  stroke: #eee;
+}
+#oee_online .circular-chart.green .circle {
+  stroke: #eee;
+}
+#oee_online .circular-chart.blue .circle {
+  stroke: #eee;
+}
+.flex-wrapper {
+  /*display:flex;*/
+  /*flex-flow:row;*/
+}
+
+

@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %} Вибрация в {% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+
+		<script type="text/javascript">
+       // var arr = JSON.parse('<? echo($ArrToJs); ?>');
+    var onlineArray=[1,2,3,4];//массив который содержит дату и все обновляемые значения {date,val1,val2,val3....} тут должны быть цифры и этот массив должен постоянно обновляться
+//window.id = arr.id;
+
+
+
+var numberGrafic = 0;
+
+{#var ALARM=[arr.ustavki.alarm];#}
+{#var WARNING=[arr.ustavki.warning];//Сформированные массивы уставок аварий предупреждений и остановов#}
+{#var STOP=[arr.ustavki.stop];#}
+{#var DateArray=arr.timeArr;//=[];//массив содержащий только отсортированные даты подставляемые в графики#}
+{#var NameCharts=[arr.pointArr.nameChart];//['Узел0','Узел1','Узел2','Узел3','Узел4','Узел5','Узел6','Узел7','Узел8','Узел9'];//подписи графиков = подписям выбранным на предыдущей странице//более расширенные названия которые будут вставляться в заголовок каждого графика...ФОРМИРУЙ ЗДЕСЬ ЖЕ#}
+{#var NamePointCharts=[arr.pointArr.name];//['Точка0','Точка1','Точка2','Точка3','Точка4','Точка5','Точка6','Точка7','Точка8','Точка9'];//подписи кнопок переходов по графикам...ФОРМИРУЙ ЗДЕСЬ ЖЕ#}
+{#        #}
+        var ALARM = [1];
+        var WARNING=[2];//Сформированные массивы уставок аварий предупреждений и остановов
+        var STOP=[3];
+        var DateArray=[1,2,3,4,5,6];
+        var NameCharts=['wwww'];
+        var tablename='wert';
+        var NamePointCharts=['qqq'];
+var arrPropertiesHeader=['wert'];//=[];//массив содержащий все англоязычные названия узлов или их id...ФОРМИРУЙ ЗДЕСЬ ЖЕ tablename
+var zag= 'qwerty';
+var DataArr=new Array();//отдельные массивы для каждого графика//будет глобальным!!!!!!!
+
+var DataArr=[[{x:1575121202000,y:9},{x:1575121212000,y:15},{x:1575121222000,y:2},{x:1575121232000,y:11},{x:1575121242000,y:21},{x:1575121252000,y:18},{x:1575121262000,y:2},{x:1575121272000,y:46}]];
+//var DataArr=[arr.dataArr];
+
+console.log(DataArr);
+
+
+
+
+
+
+$(document).ready(function(){
+$("#col_right").remove();
+$("#bodyID").remove();
+  $(function () {
+  $('.example-popover').popover({
+    container: 'body'
+  })
+});
+  table=' <br><br><p><div class="container" style="margin-left:20vw; min-width:60vw;"> \
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExam" aria-expanded="true" aria-controls="collapseExample">\
+    ГОСТ</button>\
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">IFM</a>\
+    </p>\
+<div class="collapse multi-collapse show" id="collapseExam">\
+  <div class="card card-body">\
+    <table class="table table-bordered table-hover" style="text-align:center; background-color:#f7f3f3; border-width:3px; max-width: 80%;     margin-left: 10%;"><thead><tr scope="col"><th >V мм/с</th><th scope="col">Класс 1</th><th scope="col">Класс 2</th><th scope="col">Класс 3</th><th scope="col">Класс 4</th></tr></thead>\
+  <tbody>\
+    <tr>\
+      <th scope="row">0.28</th>\
+      <td rowspan="3" style="background-color:green; color:white;">А</td>\
+      <td rowspan="4" style="background-color:green; color:white;">А</td>\
+      <td rowspan="5" style="background-color:green; color:white;">А</td>\
+      <td rowspan="6" style="background-color:green; color:white;">А</td>\
+    </tr>\
+    <tr class="h-25">\
+      <th scope="row">0.45</th>\
+    </tr>\
+    <tr>\
+      <th scope="row">0.71</th>\
+    </tr>\
+    <tr>\
+      <th scope="row">1.12</th>\
+      <td rowspan="2" style="background-color:#0d6f46; color:white;">В</td>\
+    </tr>\
+    <tr>\
+    <th scope="row">1.8</th>\
+      <td rowspan="2" style="background-color:#0d6f46; color:white;">В</td>\
+    </tr>\
+    <tr>\
+    <th scope="row">2.8</th>\
+      <td rowspan="2" style="background-color:#ab8515; color:white;">С</td>\
+      <td rowspan="2" style="background-color:#0d6f46; color:white;">В</td>\
+    </tr>\
+    <tr>\
+    <th scope="row">4.5</th>\
+      <td rowspan="2" style="background-color:#ab8515;  color:white;">С</td>\
+      <td rowspan="2" style="background-color:#0d6f46;  color:white;">В</td>\
+    </tr>\
+    <tr>\
+    <th scope="row">7.1</th>\
+      <td rowspan="5" style="background-color:#580010; color:white;">D</td>\
+      <td rowspan="2" style="background-color:#ab8515; color:white;">С</td>\
+    </tr>\
+    <tr>\
+    <th scope="row">11.2</th>\
+      <td rowspan="4" style="background-color:#580010; color:white;">D</td>\
+      <td rowspan="2" style="background-color:#ab8515; color:white;">C</td>\
+    </tr>\
+     <tr>\
+    <th scope="row">18</th>\
+      <td rowspan="3" style="background-color:#580010; color:white;">D</td>\
+    </tr>\
+     <tr>\
+    <th scope="row">28</th>\
+      <td rowspan="2" style="background-color:#580010; color:white;">D</td>\
+    </tr>\
+    <tr>\
+    <th scope="row">45</th>\
+    </tr>\
+  </tbody>\
+</table>\
+*Согласно <a  href="/assets/docs/gost_vibro.pdf">ГОСТ-10816-1-97</a> <br><br> \
+Класс 1 - Отдельные части двигателей и машин, соединенные с агрегатом и работающие в обычном для них режиме (серийные электрические моторы мощностью до 15 кВт являются типичными машинами этой категории). <br><br>\
+Класс 2 - Машины средней величины (типовые электромоторы мощностью от 15 до 875 кВт) без специальных фундаментов, жестко установленные двигатели или машины (до 300 кВт) на специальных фундаментах.  <br><br>\
+Класс 3 - Мощные первичные двигатели и другие мощные машины с вращающимися массами, установленные на массивных фундаментах, относительно жестких в направлении измерения вибрации. <br><br>\
+Класс 4 - Мощные первичные двигатели и другие мощные машины с вращающимися массами, установленные на фундаменты, относительно податливые в направлении измерения вибрации (например, турбогенераторы и газовые турбины с выходной мощностью более 10 МВт). <br><br>\
+Далее описание Зон:<br><br>\
+Зона А — В эту зону попадают, как правило, новые машины, только что введенные в эксплуатацию<br><br>\
+Зона В — Машины, попадающие в эту зону, обычно считают пригодными для дальнейшей эксплуатации без ограничения сроков <br><br>\
+Зона С — Машины, попадающие в эту зону, обычно рассматривают как непригодные для длительной непрерывной эксплуатации. Обычно данные машины могут функционировать ограниченный период времени, пока не появится подходящая возможностьдля проведения ремонтных работ <br><br>\
+Зона D — Уровни вибрации в данной зоне обычно рассматривают как достаточно серьезные, для того чтобы вызвать повреждение машины <br><br>\
+  </div></div>\
+   <div class="collapse multi-collapse" id="collapseExample"><div class="card card-body">\
+<iframe style="height:50vh; " src="https://service.ifm.com/octavis-setting-guide/" name="iframe_a"></iframe>\
+      </div> </div>\
+   </div>';
+$("#insertTable").html(table);
+});
+
+</script>
+
+<!--     <script src="http://ca01.by/plc_files/js/script.min.js"></script> -->
+    <script src="{% static  'js/highstock.js' %}"></script>
+    <script src=" {% static  'js/boost.js' %}"></script>
+    <script src="{% static  'js/d3-parse.js' %}"></script>
+    <script src="{% static  'js/VBonline.js' %}"></script>
+
+
+
+</body>
+</html>
+
+	<style type="text/css">
+     input{
+        width: 100%;
+     }
+    </style>
+
+
+{% endblock %}

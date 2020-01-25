@@ -1,0 +1,48 @@
+version: "3.5"
+
+services:
+  postgres:
+    image: postgres
+    container_name: vibro_postgres
+    networks:
+      home_sharing:
+        ipv4_address: "175.12.0.10"
+
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: vibro_web
+    command: bash -c "python manage.py makemigrations vibroDiagnostic && python manage.py makemigrations &&  python manage.py migrate &&  python manage.py collectstatic --noinput && gunicorn --workers=5 -c gunicorn.py vibro.wsgi"
+    volumes:
+      - .:/code
+    ports:
+      - 8012:8012
+    networks:
+      home_sharing:
+        ipv4_address: "175.12.0.11"
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx
+    container_name: vibro_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./static/:/code/static"
+      - "./nginx/:/etc/nginx/conf.d"
+      - "./letsencrypt:/code/letsencrypt"
+    depends_on:
+      - web
+    networks:
+      home_sharing:
+        ipv4_address: "175.12.0.9"
+
+networks:
+  home_sharing:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "175.12.0.0/16"

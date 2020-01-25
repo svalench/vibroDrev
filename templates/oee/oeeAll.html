@@ -1,0 +1,260 @@
+{% extends 'base2.html' %}
+
+{%  block title %}
+OEE
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+
+
+    <div class="modal fade" id="modalComment" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Изменение комментария</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col text-center"><span id="categoryID"
+                                                           style="font-size:30px;">Станок 1 :</span><span id="statusID"
+                                                                                                          class="mx-1"
+                                                                                                          style="font-size:30px;">СОСТОЯНИЕ</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center my-2"><span>c</span><strong class="mx-1"
+                                                                                id="timeXID">Bold</strong><span>по</span><strong
+                                class="mx-1" id="timeX2ID">Bold</strong></div>
+                    </div>
+                </div>
+                <form action="index.php">
+                    <input class="form-check-input" style="display: none;" type="text" name="idgr" id="idgr" value="">
+                    <div id="prich" style="display:none;" class="form-group">
+                        <label for="message-text" class="form-control-label">Причина:</label>
+                        <select class="browser-default  form-control" name="prichina" id="prichina" required>
+                            <option selected="selected" value=''>Выберите причину</option>
+                            <option value="1">Ремонтные работы</option>
+                            <option value="Погодные условия (сильный ветер)">Погодные условия (сильный ветер)</option>
+                            <option value="Отсутствие сырья">Отсутствие сырья</option>
+                            <option value="Отсутствие пара">Отсутствие пара</option>
+                        </select>
+                    </div>
+                    <div id="sluzh" style="display:none" class="form-group">
+                        <label for="message-text" class="form-control-label">Кого вызывали:</label>
+                        <select class="browser-default  form-control" name="sluzhba" id="sluzhba" required>
+                            <option selected="selected" value=''>Выберите службу</option>
+                            <option value="1">Электрик</option>
+                            <option value="2">Слесарь</option>
+                            <option value="3">Слесарь и электрик</option>
+                        </select>
+                    </div>
+                    <div id="rem" style="display:none" class="form-group">
+                        <label for="message-text" class="form-control-label">Тип ремонта:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="typerem" id="inlineRadio1" value="2"
+                                   required>
+                            <label class="form-check-label" for="inlineRadio1">Аварийный ремонт</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="typerem" id="inlineRadio2" value="1">
+                            <label class="form-check-label" for="inlineRadio2">Плановый ремонт</label>
+                        </div>
+                        <div id="agr" style="display:none" class="form-group">
+                            <label for="message-text" class="form-control-label">Агрегат вышедший из строя:</label>
+                            <div id="insertDivSelect" class="form-check form-check-inline">
+                                <input class="form-control" type="text" name="agregat" id="agregat"
+                                       placeholder="введите агрегат вышедший из строя">
+                            </div>
+                        </div>
+                        <div class="form-group" id="forseclevel"></div>
+                        <div style="display:none" class="form-group">
+                            <input class="form-control" type="text" name="id" id="id">
+                        </div>
+                        <div style="display:none" class="form-group">
+                            <input class="form-control" type="text" name="oborname" id="oborname">
+                        </div>
+                        <div style="display:none" class="form-group">
+                            <input class="form-control" type="text" name="timestart" id="timeStr">
+                        </div>
+                        <div style="display:none" class="form-group">
+                            <input class="form-control" type="text" name="timeend" id="timeEnd">
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message-text" class="form-control-label">Комментарий:</label>
+                        <textarea class="form-control" name="comment" id="commentID"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-primary" id='saveButton'>Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid" style="padding-right:25px;">
+    <div class="row align-items-center">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-11 col-xl-11 d-flex flex-fill justify-content-center align-items-center align-content-center align-self-center"
+             id="chartOEE"></div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 float-right d-flex flex-row flex-fill justify-content-start flex-wrap flex-sm-row flex-md-row flex-lg-column flex-xl-column justify-content-xl-center"
+             id="rangeSelect">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center"><span class="align-self-center text-center"
+                                                                        style="font-size:19px;">Период</span></div>
+                <div class="col-12 d-flex justify-content-center align-items-center align-content-center align-self-center flex-wrap flex-lg-column flex-xl-column"
+                     style="padding-left:0px;padding-right:0px;">
+
+                    <button class="btn btn-outline-info d-flex justify-content-center waves-effect btn-rounded"
+                            type="button" data-bs-hover-animate="flash" id="hour" style="width:90px;">1час
+                    </button>
+
+                    <button class="btn btn-outline-info d-flex justify-content-center waves-effect btn-rounded"
+                            type="button" data-bs-hover-animate="flash" id="shift" style="width:90px;">Смена
+                    </button>
+
+                    <button class="btn btn-outline-info d-flex justify-content-center waves-effect btn-rounded"
+                            type="button" data-bs-hover-animate="flash" id="day" style="width:90px;">День
+                    </button>
+
+                    <button class="btn btn-outline-info d-flex justify-content-center waves-effect btn-rounded"
+                            type="button" data-bs-hover-animate="flash" id="week" style="width:90px;">Неделя
+                    </button>
+
+                    <button class="btn btn-outline-info d-flex justify-content-center waves-effect btn-rounded"
+                            type="button" data-bs-hover-animate="flash" id="month" style="width:90px;">Месяц
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid pb-5" id="padBot"></div>
+
+
+
+<script src="{% static  'js/all.min.js' %}"></script>
+        <script src="{% static  'bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+
+
+<script type="text/javascript">
+
+
+    {#var mass_obor = '';#}
+    {# assets/bootstrap/js/bootstrap.min.js  #}
+    {#var json_obor = JSON.parse(mass_obor);#}
+    {##}
+    {#var mass = [];#}
+    {##}
+    {#mass = JSON.parse(mass);#}
+
+       var mass_obor = '';
+
+    var json_obor = {};
+
+    var mass = [];
+
+    mass = {};
+    window.strData = mass;
+    window.strCategories = ['st1','st2','st3','st4'];
+    var r = 0;
+    var sootn = {};
+    $.each(json_obor, function (a1, b1) {
+        sootn[r] = {"id": b1.id, "sootn": r};
+        strCategories[r] = b1.name;
+        r++;
+    });
+    r = 0;
+
+
+    $.each(mass, function (a1, b1) {
+        $.each(b1, function (a2, b2) {
+            if (Array.isArray(b2)) {
+                $.each(b2, function (a3, b3) {
+                    $.each(sootn, function (a4, b4) {
+
+                        if (b3.y == b4.id) {
+                            b3.y = b4.sootn;
+
+                        }
+                    });
+                });
+            }
+        });
+    });
+window.strData = [
+    {name: "Работает",turboThreshold: 99999, data:[
+        {id: "311915", name: null, x: 1576945097000, x2: 1576943379000, y:2 }
+        ]},
+    {name: "Авария",turboThreshold: 99999, data:[]},
+    {name: "Выключен",turboThreshold: 99999, data:[]},
+    {name: "Простой",turboThreshold: 99999, data:[]},
+    ];
+
+$(document).ready(function () {
+    $("#bodyID").css('width','100vw');
+$("#col_right").remove();
+})
+
+</script>
+
+
+
+
+
+
+
+     <script src="{% static  'js/d3-parse.js' %}"></script>
+    <script src="{% static  'js/highcharts.js' %}"></script>
+    <script src="{% static  'js/map.js' %}"></script>
+<script src="{% static  'js/moment-with-locales.js' %}"></script>
+<script src="{% static  'js/xrange.js' %}"></script>
+<script src="{% static  'js/bs-animation.js' %}"></script>
+    <script src="{% static  'js/oeeChart.js' %}"></script>
+
+
+
+
+{% endblock %}

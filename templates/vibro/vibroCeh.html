@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block title %} Выбор цеха {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+
+    <ul class="nav nav-tabs nav-fill mb-2">
+       {% for c in ceh %}
+        <li class="nav-item    ">
+
+            <a class="nav-link  {% if forloop.first %}active {% endif %}" role="tab"
+               data-toggle="tab" href="#tab-{{ c.id }}"
+               style='text-transform: uppercase;'
+               style="font-size:18px;">{{ c.name }}</a></li>
+        {% endfor %}
+
+    </ul>
+    <div class="tab-content">
+
+
+
+    {% if request.user.is_superuser %}
+{% for c in ceh %}
+        <div class="tab-pane  {% if forloop.first %} fade show active {% endif %}" role="tabpanel"
+             id="tab-{{ c.id }}">
+            <div class="container-fluid">
+                <div class="row d-flex flex-fill justify-content-start m-auto">
+
+
+
+
+    <ul class="nav nav-tabs nav-fill mb-2">
+       {% for z in c.ceh_set.all %}
+        <li class="nav-item    ">
+
+            <a class="nav-link  {% if forloop.first %}active {% endif %}" role="tab"
+               data-toggle="tab" href="#tab-{{ z.id }}A"
+               style='text-transform: uppercase;'
+               style="font-size:18px;">{{ z.name }}</a></li>
+        {% endfor %}
+
+    </ul>
+
+    <div class="tab-content">
+  {% for z in c.ceh_set.all %}
+              <div class="tab-pane  {% if forloop.first %} fade show active {% endif %}" role="tabpanel"
+             id="tab-{{ z.id }}A">
+            <div class="container-fluid">
+                <div class="row d-flex flex-fill justify-content-start m-auto">
+        {% if z.oborudovanie_set.all %}
+     {% for o in z.oborudovanie_set.all %}
+
+                    <div class="col-auto col-sm-auto col-md-4 col-lg-4 d-flex flex-fill justify-content-center border border-info mb-1 mt-1">
+                        <div class="row justify-content-between w-100">
+
+                                <div class="col-12 d-flex flex-fill justify-content-center">
+                                    <span>{{ o.name }} </span></div>
+
+                            <div class="col-12 d-flex flex-fill justify-content-center">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="3" style="font-size:14px;">Узел</th>
+                                            <th style="font-size:14px;">Online</th>
+                                            <th style="font-size:14px;">Max</th>
+                                            <th>Ср.</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                             {% if o.point_set.all %}
+                                     {% for p in o.point_set.all %}
+                                        <tr>
+                                            <td colspan="3"><a href="{% url 'vibroDiagnostic:point' c.id o.id p.id %}"> {{ p.name }} </a> </td>
+                                            <td style="background-color:green;"> sdf</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                                 {% else %} нет точек
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+                {% else %}
+         Нет оборудования
+         {% endif %}
+
+        </div>
+    </div>
+    </div>
+       {% endfor %}
+</div>
+
+        </div>
+    </div>
+    </div>
+         {% endfor %}
+
+    {% else %}
+{% for c in ceh %}
+        <div class="tab-pane  {% if forloop.first %} fade show active {% endif %}" role="tabpanel"
+             id="tab-{{ c.id }}">
+            <div class="container-fluid">
+                <div class="row d-flex flex-fill justify-content-start m-auto">
+
+
+        {% for o in c.oborudovanie_set.all %}
+                    <div class="col-auto col-sm-auto col-md-4 col-lg-4 d-flex flex-fill justify-content-center border border-info mb-1 mt-1">
+                        <div class="row justify-content-between w-100">
+
+                                <div class="col-12 d-flex flex-fill justify-content-center">
+                                    <span>{{ o.name }} </span></div>
+                            
+                            <div class="col-12 d-flex flex-fill justify-content-center">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover table-sm">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="3" style="font-size:14px;">Узел</th>
+                                            <th style="font-size:14px;">Online</th>
+                                            <th style="font-size:14px;">Max</th>
+                                            <th>Ср.</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                             {% if o.point_set.all %}
+                                     {% for p in o.point_set.all %}
+                                        <tr>
+                                            <td colspan="3"><a href="{% url  'vibroDiagnostic:point' c.id o.id p.id %}"  > {{ p.name }} </a></td>
+                                            <td style="background-color:green;"></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                                 {% else %} нет точек
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    {% endif %}
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

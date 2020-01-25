@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Журнал {% endblock %}
+
+{% block content %}
+{% load static %}
+
+    <div class="col-4 col-sm-5 mb-4 mr-5 mt-4">
+            <div class="row box-card flex-column flex-sm-row">
+
+                <div id="statistic" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                    <div class="border-in d-flex justify-content-center align-items-center p-2">
+                        <img class="rounded img-fluid" src="{% static 'img/white/repairs-ico-1.png' %}">
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                    <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                        <h2 class=""
+                        >Просмотр журнала</h2>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Просмотр журнала ремонта и простоев</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+             <div class="col-4 col-sm-5 mb-4 mt-4">
+            <div class="row box-card flex-column flex-sm-row">
+
+                <div id="otchet_r" class="col-12 col-sm-5 d-flex justify-content-center align-items-center bg-blue px-0 py-2 p-sm-0">
+                    <div class="border-in d-flex justify-content-center align-items-center p-2">
+                        <img class="rounded img-fluid" src="{% static  'img/white/repairs-ico-2.png' %}">
+                    </div>
+                </div>
+
+                <div class="ccol-12 col-sm-7 d-flex flex-column justify-content-center justify-content-sm-center justify-content-md-center  align-items-center bg-white p-2">
+
+                    <div class="text-center mb-2 mt-sm-2 mt-lg-4">
+                        <h2 class=""
+                        >Заполнение журнала</h2>
+                    </div>
+
+                    <div class="text-center">
+                        <span class="d-none d-sm-none d-md-none d-lg-flex box-desc">Заполнение журнала ремонтных работ и простоев</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title  %} startpage {% endblock %}</title>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css'%}">
+{#    <link rel="stylesheet" href="{% static  'css/styles.css' %}">#}
+
+    <link rel="stylesheet" href="{% static 'css/gauge.css'%}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <!--<script src="/js/jq.js"></script>-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script type="text/javascript" src="{% static 'js/moment-with-locales.js' %}"></script>
+    <script src="{% static 'js/tooltip.js' %}"></script>
+    <script src="{% static 'js/status-resize.js' %}"></script>
+</head>
+<body>
+
+<div id="container-full" class="container-fluid p-0 d-flex flex-column justify-content-start align-items-center" style="min-height: 100%;">
+
+    <div class="container-fluid  d-print-none" id="headerID">
+
+        <div class="row justify-content-end header-row-first align-items-center bg-blue">
+
+            <div class="col-12 d-flex justify-content-end align-items-center">
+
+                <div class="logo-box mr-auto">
+                    <a href="{% url 'vibroDiagnostic:startsystem' %}">
+                        <img id="astImg" class="rounded img-fluid d-flex flex-shrink-0 flex-fill flex-wrap mr-auto"
+                             src="{% static  'img/logo.png' %}" alt="MVLab" style="">
+                    </a>
+                </div>
+
+{#                <div class="text-center mr-5 timesever">#}
+{#                    <span class="text-monospace font-weight-bold" id="timesever"#}
+{#                          style="font-size:20px;">Серверное время</span>#}
+{#                </div>#}
+{% if request.user.is_superuser %}
+                <div class="mr-5 settings">
+                    <a href="/admin"><span id="param12" class="settings-ico"></span></a>
+                </div>
+{% endif %}
+                <div class="mr-5 user" style="font-size:20px;">
+                        <span id="UserID" class="face-ico font-weight-bold font-italic weight-text">
+                            {{ user.username }}
+                        </span>
+                </div>
+
+                <div class="exit">
+                    <form action="{% url 'logout'%}">
+                    <button class="butt-exit" type="submit"  id="LogoutID">Выйти</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-start header-row-2 align-items-center bg-gray d-none d-sm-none d-md-none d-lg-flex">
+            <div class="col-12 d-flex justify-content-start header-row-2 align-items-center menu" style="z-index: 10000;">
+{% if user.client.to_3d %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:3d'  %}" class="link-parent">3D-Сканер</a>
+                    <div class="menu-children">
+                        <a href="/start/3d/3dscan/index.php">Онлайн</a>
+                        <a href="/start/3d/3dotchet/index.php">Отчеты</a>
+                    </div>
+                </div>
+            {% endif %}
+{% if user.client.to_vibro %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:vibration' %}" class="link-parent">Вибрация</a>
+                    <div class="menu-children">
+                        <a href="{% url 'vibroDiagnostic:vibroOnlineSelect' %}">Онлайн</a>
+                        <a href="/start/vibration/otchet_v/index.php">Отчеты</a>
+                    </div>
+                </div>
+{% endif %}
+                {% if user.client.to_oee %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:oeemenu' %}" class="link-parent">OEE</a>
+                    <div class="menu-children">
+                        <a href="{% url 'vibroDiagnostic:oeeall' %}">Онлайн</a>
+                        <a href="/start/oee/oee_otcet/index.php">Отчеты</a>
+                    </div>
+                </div>
+                {% endif %}
+             {% if user.client.to_jurnal %}
+                <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:jurnalmenu' %}" class="link-parent">Ремонтные работы</a>
+                    <div class="menu-children">
+                        <a href="/start/repairs/repairsToDo/index.php">Просмотр журнала</a>
+                        <a href="/start/repairs/repairsNow/index.php">Заполнение журнала</a>
+                    </div>
+                </div>
+            {% endif %}
+            {% if user.client.to_message %}
+             <div class="menu-item">
+                    <a href="{% url 'vibroDiagnostic:messages' %}" class="link-parent">Сообщения</a>
+                </div>
+             {% endif %}
+                </nav>
+            </div>
+
+        </div>
+    </div>
+
+
+
+<div class="container-fluid d-flex flex-column justify-content-start" id="bodyID">
+
+    <div id="body_container" class="row flex-column-reverse flex-sm-column-reverse flex-md-row">
+
+
+                {% block content %} {% endblock %}
+
+
+
+
+ </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
+
+
+
+
+<style>
+    @media screen and (max-width: 576px) {
+
+        .single-chart {
+            width: 25%;
+        }
+
+        .box-card {
+            min-height: auto !important;
+        }
+        .box-card .col-12:first-child {
+            /*max-height: 100px;*/
+        }
+        .box-card .border-in {
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+        }
+        .box-card img {
+            padding: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .box-card .border-in::before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
+        .box-card h2 {
+            font-size: 16px;
+            height: 40px;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        #bodyID {
+            margin-bottom: 0;
+            /*height: calc(100vh - 163px);*/
+            height: calc(100vh - 80px);
+        }
+
+        #padBot {
+            padding: 0;
+        }
+
+        #body_container {
+            /*height: 100%;*/
+        }
+        #col_left {
+            margin: auto;
+        }
+        #container-full {
+            min-height: 100%;
+        }
+    }
+</style>
