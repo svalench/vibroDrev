@@ -13,7 +13,7 @@ services:
       dockerfile: Dockerfile
       context: .
     container_name: vibro_web
-    command: bash -c "python manage.py makemigrations vibroDiagnostic && python manage.py makemigrations &&  python manage.py migrate &&  python manage.py collectstatic --noinput && gunicorn --workers=5 -c gunicorn.py vibro.wsgi"
+    command: bash -c "python manage.py makemigrations vibroDiagnostic && python manage.py makemigrations &&  python manage.py migrate &&  python manage.py collectstatic --noinput && gunicorn -c gunicorn.py vibro.wsgi"
     volumes:
       - .:/code
     ports:
@@ -28,9 +28,10 @@ services:
     image: nginx
     container_name: vibro_nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
+      - "./media/:/code/media"
       - "./static/:/code/static"
       - "./nginx/:/etc/nginx/conf.d"
       - "./letsencrypt:/code/letsencrypt"
