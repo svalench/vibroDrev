@@ -26,7 +26,7 @@ print(BASE_DIR)
 SECRET_KEY = 'pt9!fecc$4b_l@le4cq+jf26p(u0vr5x4e_9=ubn8hn*ccj=gm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -34,8 +34,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    #'grappelli',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -43,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vibro',
     'apps.vibroDiagnostic',
-
+    'django.contrib.admin',
 
 ]
 
