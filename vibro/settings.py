@@ -26,7 +26,7 @@ print(BASE_DIR)
 SECRET_KEY = 'pt9!fecc$4b_l@le4cq+jf26p(u0vr5x4e_9=ubn8hn*ccj=gm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
